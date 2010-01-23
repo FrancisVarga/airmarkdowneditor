@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo" 
+		 width="100%" height="100%">
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.events.MouseEvent;
+			
+			import mvc.utils.MarkdownParser;
+			
+			import spark.components.RichEditableText;
+			import spark.events.TextOperationEvent;
+
+			[Bindable]
+			private var htmlText : String;
+
+			public function set markdownTxt(value : String):void{
+				this.markdown.text = value;
+				preview.htmlText = parseText(value);
+			}
+			
+			private function parseText(text : String):String{
+				return mvc.utils.MarkdownParser.parseMarkdown( text );
+			}
+			
+			protected function textarea1_changeHandler(event:TextOperationEvent):void
+			{
+				preview.htmlText = parseText( (event.currentTarget as RichEditableText).text );
+			}
+			
+			protected function openMarkdown_clickHandler(event:MouseEvent):void
+			{
+				var myEvent : MarkdownEditorEvent = new MarkdownEditorEvent(MarkdownEditorEvent.OPEN_MARKDOWN);
+				dispatchEvent(myEvent);
+			}
+
+			protected function saveMarkdown_clickHandler(event:MouseEvent):void
+			{
+				var myEvent:MarkdownEditorEvent = new MarkdownEditorEvent(MarkdownEditorEvent.SAVE_MARKDOWN);
+				myEvent.saveString = markdown.text;
+				dispatchEvent(myEvent);
+			}
+			
+			protected function saveHTML_clickHandler(event:MouseEvent):void
+			{
+				var myEvent : MarkdownEditorEvent = new MarkdownEditorEvent(MarkdownEditorEvent.SAVE_HTML);
+				myEvent.saveString = preview.htmlText;
+				dispatchEvent(myEvent);
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:layout><s:VerticalLayout/></s:layout>
+	
+	<s:Group width="100%" height="100%">
+		<s:layout><s:VerticalLayout/></s:layout>
+		<s:RichEditableText id="markdown" width="100%" height="100%" change="textarea1_changeHandler(event)" />
+		<s:Group width="100%">
+			<s:layout><s:HorizontalLayout/></s:layout>
+			<s:Button id="saveMarkdown" click="saveMarkdown_clickHandler(event)" height="30" label="Save Markdown" width="100%" />  
+			<s:Button id="openMarkdown" click="openMarkdown_clickHandler(event)" height="30" label="Open Markdown" width="100%" />
+		</s:Group>
+	</s:Group>
+	
+	<s:Group width="100%" height="100%">
+		<s:layout><s:VerticalLayout/></s:layout>
+		<mx:HTML id="preview" width="100%" height="100%" />
+		<s:Button id="saveHTML" click="saveHTML_clickHandler(event)" label="Save HTML" height="30" width="100%" />
+	</s:Group>
+	
+</s:Group>
