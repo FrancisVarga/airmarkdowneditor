@@ -21,6 +21,7 @@ package mvc
 			commandMap.mapEvent(MarkdownEditorEvent.WRITE_FILE, WriteFileCommand, MarkdownEditorEvent);
 			
 			mediatorMap.mapView(MarkdownEditor, MarkdownEditorMediator);
+			mediatorMap.mapView(MainMarkdownEditor, MainMarkdownEditorMediator);
 			
 			super.startup();
 			

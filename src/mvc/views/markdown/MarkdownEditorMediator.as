@@ -38,13 +38,19 @@ package mvc.views.markdown
 			
 		}
 		
-		private function onOpenFileSelect(event : Event):void{
+		private function onOpenFileSelect(event : *):void{
 			
-			var currentFile : File = event.currentTarget as File;
-			var fileStream : FileStream = new FileStream();
-			fileStream.open(currentFile, FileMode.READ);
-			var content : String = fileStream.readUTFBytes( fileStream.bytesAvailable );
-			fileStream.close();
+			if(event as File){
+				
+			} else {
+				
+				var currentFile : File = event.currentTarget as File;
+				var fileStream : FileStream = new FileStream();
+				fileStream.open(currentFile, FileMode.READ);
+				var content : String = fileStream.readUTFBytes( fileStream.bytesAvailable );
+				fileStream.close();
+					
+			}
 			
 			view.markdownTxt = content;
 			

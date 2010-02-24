@@ -4,12 +4,31 @@
 					   xmlns:mx="library://ns.adobe.com/flex/halo" 
 					   xmlns:mvc="mvc.*" xmlns:local="*"
 					   width="1024" height="768"
-					   xmlns:markdown="mvc.views.markdown.*">
+					   xmlns:markdown="mvc.views.markdown.*"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.managers.DragManager;
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+			{
+				NativeDragManager.acceptDragDrop(this);
+			}
+
+		]]>
+	</fx:Script>
 	
 	<fx:Declarations>
 		<mvc:MarkdownEditorContext contextView="{this}" />
 	</fx:Declarations>
 	
 	<markdown:MarkdownEditor />
+	
+	<s:nativeDragEnter>
+		<![CDATA[
+			DragManager.acceptDragDrop(this);
+		]]>
+	</s:nativeDragEnter>
 	
 </s:WindowedApplication>
