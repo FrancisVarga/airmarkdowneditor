@@ -1,0 +1,6 @@
+[submodule "libs/robo"]
+	path = libs/robo
+	url = git://github.com/robotlegs/robotlegs-framework.git
+[submodule "libs/swift"]
+	path = libs/swift
+	url = git://github.com/darscan/SwiftSuspenders.git
