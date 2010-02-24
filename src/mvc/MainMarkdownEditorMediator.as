@@ -4,8 +4,9 @@ package mvc
 	import flash.events.NativeDragEvent;
 	import flash.filesystem.File;
 	
+	import mvc.views.markdown.MarkdownEditorEvent;
+	
 	import mx.controls.Alert;
-	import mx.managers.DragManager;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -48,6 +49,10 @@ package mvc
 		}
 		
 		private function handleDropedFiles(dropedFiles : File):void{
+			
+			var event : MarkdownEditorEvent = new MarkdownEditorEvent(MarkdownEditorEvent.OPEN_MARKDOWN_FILE);
+			event.mdFile = dropedFiles;
+			dispatch(event);
 			
 		}
 	}

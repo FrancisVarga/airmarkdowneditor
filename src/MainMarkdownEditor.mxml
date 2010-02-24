@@ -28,6 +28,7 @@
 	<s:nativeDragEnter>
 		<![CDATA[
 			DragManager.acceptDragDrop(this);
+			NativeDragManager.acceptDragDrop(this);
 		]]>
 	</s:nativeDragEnter>
 	

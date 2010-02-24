@@ -10,7 +10,9 @@ package mvc.views.markdown
 		public static const SAVE_HTML : String = "save_html";
 		public static const OPEN_MARKDOWN : String = "open_markdown";
 		public static const WRITE_FILE : String = "write_file";
+		public static const OPEN_MARKDOWN_FILE : String = "open_md_file";
 		
+		public var mdFile : File;
 		public var saveString : String;
 		public var fileToWrite : File;
 		

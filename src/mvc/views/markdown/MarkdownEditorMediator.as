@@ -27,6 +27,7 @@ package mvc.views.markdown
 			eventMap.mapListener(view, MarkdownEditorEvent.SAVE_HTML, onSaveHTML);
 			eventMap.mapListener(view, MarkdownEditorEvent.SAVE_MARKDOWN, onSaveMarkdown);
 			eventMap.mapListener(view, MarkdownEditorEvent.OPEN_MARKDOWN, onOpenMDFile);
+			eventMap.mapListener(eventDispatcher, MarkdownEditorEvent.OPEN_MARKDOWN_FILE, dropedFileHandler);
 			
 		}
 		
@@ -38,22 +39,24 @@ package mvc.views.markdown
 			
 		}
 		
-		private function onOpenFileSelect(event : *):void{
-			
-			if(event as File){
+		private function onOpenFileSelect(event : Event):void{
 				
-			} else {
-				
-				var currentFile : File = event.currentTarget as File;
-				var fileStream : FileStream = new FileStream();
-				fileStream.open(currentFile, FileMode.READ);
-				var content : String = fileStream.readUTFBytes( fileStream.bytesAvailable );
-				fileStream.close();
-					
-			}
+			var currentFile : File = event.currentTarget as File;
+			readMDFile(currentFile);
 			
+		}
+		
+		private function dropedFileHandler(event : MarkdownEditorEvent):void{
+			readMDFile(event.mdFile);	
+		}
+		
+		private function readMDFile(file : File):void{
+			
+			var fileStream : FileStream = new FileStream();
+			fileStream.open(file, FileMode.READ);
+			var content : String = fileStream.readUTFBytes(fileStream.bytesAvailable);
 			view.markdownTxt = content;
-			
+				
 		}
 		
 		private function onSaveHTML(event : MarkdownEditorEvent):void{
