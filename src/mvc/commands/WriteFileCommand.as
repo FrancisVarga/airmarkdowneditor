@@ -21,6 +21,8 @@ package mvc.commands
 		
 		override public function execute() : void{
 			
+			trace("Write file");
+			
 			var fileStream : FileStream = new FileStream();
 			fileStream.open(event.fileToWrite, FileMode.WRITE);
 			fileStream.writeUTFBytes(event.saveString);
